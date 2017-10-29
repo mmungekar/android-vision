@@ -36,6 +36,20 @@
         android:id="@+id/read_text"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/speech_button"
+        android:id="@+id/speech_button"
+        android:layout_above="@+id/read_text"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan menu"
+        android:id="@+id/menu_button"
+        android:layout_above="@+id/speech_button"
+        android:layout_centerHorizontal="true" />
 
     <CheckBox
         android:layout_width="wrap_content"

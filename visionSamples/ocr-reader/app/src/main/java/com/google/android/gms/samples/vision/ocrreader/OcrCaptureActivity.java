@@ -38,7 +38,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Toast;
-
+import java.util.ArrayList;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -321,24 +321,36 @@ public final class OcrCaptureActivity extends AppCompatActivity {
      * @return true if the activity is ending.
      */
     private boolean onTap(float rawX, float rawY) {
-        OcrGraphic graphic = mGraphicOverlay.getGraphicAtLocation(rawX, rawY);
-        TextBlock text = null;
-        if (graphic != null) {
-            text = graphic.getTextBlock();
-            if (text != null && text.getValue() != null) {
-                Intent data = new Intent();
-                data.putExtra(TextBlockObject, text.getValue());
-                setResult(CommonStatusCodes.SUCCESS, data);
-                finish();
-            }
-            else {
-                Log.d(TAG, "text data is null");
-            }
+//        OcrGraphic graphic = mGraphicOverlay.getGraphicAtLocation(rawX, rawY);
+//        TextBlock text = null;
+//        if (graphic != null) {
+//            text = graphic.getTextBlock();
+//            if (text != null && text.getValue() != null) {
+//                Intent data = new Intent();
+//                data.putExtra(TextBlockObject, text.getValue());
+//                setResult(CommonStatusCodes.SUCCESS, data);
+//                finish();
+//            }
+//            else {
+//                Log.d(TAG, "text data is null");
+//            }
+//        }
+//        else {
+//            Log.d(TAG,"no text detected");
+//        }
+//        return text != null;
+
+        ArrayList<String> myList = mGraphicOverlay.getStrings();
+        for(String s: myList){
+            Log.d(TAG, s);
         }
-        else {
-            Log.d(TAG,"no text detected");
-        }
-        return text != null;
+        Log.d(TAG, myList.get(0));
+        Intent data = new Intent();
+        data.putExtra(TextBlockObject, "yay");
+        data.putStringArrayListExtra("stringData", myList);
+        setResult(CommonStatusCodes.SUCCESS, data);
+        finish();
+        return true;
     }
 
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {

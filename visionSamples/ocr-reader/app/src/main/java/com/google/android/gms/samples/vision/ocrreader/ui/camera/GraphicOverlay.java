@@ -20,8 +20,13 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.google.android.gms.samples.vision.ocrreader.OcrGraphic;
 import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.Text;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -206,5 +211,26 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
                 graphic.draw(canvas);
             }
         }
+    }
+
+    /**
+     * Returns all graphic objects
+     */
+    public ArrayList<String> getStrings() {
+        ArrayList<String> mArray = new ArrayList<String>();
+        for (T graphic : mGraphics) {
+            if (graphic != null) {
+                OcrGraphic myGraphic = (OcrGraphic) graphic;
+                TextBlock text = myGraphic.getTextBlock();
+                if (text != null && text.getValue() != null) {
+                    List<? extends Text> textComponents = text.getComponents();
+                    for(Text t : textComponents) {
+                        mArray.add(t.getValue());
+                    }
+
+                }
+            }
+        }
+        return mArray;
     }
 }
